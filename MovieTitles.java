@@ -10,7 +10,7 @@ public class MovieTitles {
     class MovieNode {
 
         // The left and right side of this node
-        MovieNode leftSide, rightSide;
+        MovieNode leftChild, rightChild;
         
         // The data in the node
         String title, year;
@@ -63,23 +63,23 @@ public class MovieTitles {
     }
 
     // Recursion
-    private void addToSide(MovieNode localRoot, MovieNode node) {
+    private void addToChild(MovieNode localRoot, MovieNode node) {
         
         // if node is less than the localRoot then the node will be on the left of the localRoot
         if(node.compareTo(localRoot) < 0) {
-            if(localRoot.leftSide == null) {
-                localRoot.leftSide = node;
+            if(localRoot.leftChild == null) {
+                localRoot.leftChild = node;
             } else {
                 // if localRoot already has a left side then it will recurse on that side
-                addToSide(localRoot.leftSide, node);
+                addToChild(localRoot.leftChild, node);
             }
         // if node is greater than the localRoot then node will be on the right of the localRoot
         } else if(node.compareTo(localRoot) > 0) {
-            if(localRoot.rightSide == null) {
-                localRoot.rightSide = node;
+            if(localRoot.rightChild == null) {
+                localRoot.rightChild = node;
             } else {
                 // if localRoot already has a right child then recurse on that child
-                addToSide(localRoot.rightSide, node);
+                addToChild(localRoot.rightChild, node);
             }
         } else {
             return;
@@ -105,7 +105,7 @@ public class MovieTitles {
         // if currentNode is within the boundary of start and end node
         } else if(currentNode.compareTo(startNode) >= 0 && currentNode.compareTo(endNode) <= 0) {
             // add left side
-            addToSubset(list, startNode, endNode, currentNode.leftSide);
+            addToSubset(list, startNode, endNode, currentNode.leftChild);
             // add itself to the list
             list.add(currentNode);
             // add right side and nodes
@@ -119,10 +119,10 @@ public class MovieTitles {
         if(node == null) return;
         
         // print left side
-        printTree(node.leftSide);
+        printTree(node.leftChild);
         System.out.println(node);
         // print right side
-        printTree(node.rightSide);
+        printTree(node.rightChild);
     }
 
     public static void main(String[] args) throws IOException {
